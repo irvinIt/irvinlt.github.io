@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Valores de distancia y pasos</title>
+</head>
+<body>
+  <h1>Valores de distancia y pasos</h1>
+
+  <div id="distance">Distancia recorrida: <span id="distanceValue"></span> metros</div>
+  <div id="steps">Pasos: <span id="stepsValue"></span></div>
+
+  <script>
+    // Función para obtener y mostrar los valores de distancia y pasos
+    function getDistanceAndSteps() {
+      fetch('/data') // Ruta a la que se enviarán las solicitudes
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('distanceValue').textContent = data.distance;
+          document.getElementById('stepsValue').textContent = data.steps;
+        })
+        .catch(error => {
+          console.log('Error al obtener los valores:', error);
+        });
+    }
+
+    // Obtener los valores al cargar la página
+    window.addEventListener('load', getDistanceAndSteps);
+
+    // Obtener los valores cada 5 segundos (opcional)
+    setInterval(getDistanceAndSteps, 5000);
+  </script>
+</body>
+</html>
